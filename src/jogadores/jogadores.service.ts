@@ -67,4 +67,18 @@ export class JogadoresService {
     }
     return jogadorEncontrado
   }
+
+  async deletarJogador(email: string) {
+    const jogadorEncontrado = this.jogadores.find(
+      (jogador) => jogador.email === email,
+    )
+
+    if (!jogadorEncontrado) {
+      throw new NotFoundException(
+        `Jogador com o e-mail: ${email}, não encontrado! Impossível deletar.`,
+      )
+    }
+
+    this.jogadores = this.jogadores.filter((jogador) => jogador.email !== email)
+  }
 }
